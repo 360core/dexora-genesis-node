@@ -30,11 +30,11 @@ const ReferralTable = () => {
         <table className="min-w-[700px] w-full text-sm">
           <thead className="bg-[#a5b6c4] text-black">
             <tr>
-              <th className="px-4 py-2 text-left">Sr No.</th>
-              <th className="px-4 py-2 text-left">Wallet</th>
-              <th className="px-4 py-2 text-left">Amount</th>
-              <th className="px-4 py-2 text-left">Reward</th>
-              <th className="px-4 py-2 text-center">Action</th>
+              <th className="px-4 py-2 text-center">Sr No.</th>
+              <th className="px-4 py-2 text-center">Wallet</th>
+              <th className="px-4 py-2 text-center">Amount</th>
+              <th className="px-4 py-2 text-center">Reward</th>
+              {/* <th className="px-4 py-2 text-center">Action</th> */}
             </tr>
           </thead>
 
@@ -44,15 +44,15 @@ const ReferralTable = () => {
                 key={i}
                 className="border-b border-gray-700 hover:bg-gray-800"
               >
-                <td className="px-4 py-3 text-left">{i + 1}</td>
-                <td className="px-4 py-3 text-left">{item.wallet}</td>
-                <td className="px-4 py-3 text-left">{item.amount}</td>
-                <td className="px-4 py-3 text-green-400 text-left">{item.reward}</td>
-                <td className="px-4 py-3 text-center">
+                <td className="px-4 py-3 text-center">{i + 1}</td>
+                <td className="px-4 py-3 text-center">{item.wallet}</td>
+                <td className="px-4 py-3 text-center">{item.amount}</td>
+                <td className="px-4 py-3 text-green-400 text-center">{item.reward}</td>
+                {/* <td className="px-4 py-3 text-center">
                   <button className="px-3 py-2 text-xs bg-[#bcd7f5] text-black rounded-md">
                     Claim
                   </button>
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>
