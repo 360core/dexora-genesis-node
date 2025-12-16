@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'FoundersGroteskMonoRegular';
+    src: url('FoundersGroteskMonoRegular.eot');
+    src: url('FoundersGroteskMonoRegular.eot?#iefix') format('embedded-opentype'),
+        url('FoundersGroteskMonoRegular.woff2') format('woff2'),
+        url('FoundersGroteskMonoRegular.woff') format('woff'),
+        url('FoundersGroteskMonoRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
