@@ -51,7 +51,7 @@ const StakeTable = () => {
             <td className="px-4 py-3 text-left">{item.days}</td>
             <td className="px-4 py-3 text-left">{item.capital}</td>
             <td className="px-4 py-3 text-left">{item.reward}</td>
-            <td className="px-4 py-3">{item.unstakable}</td>
+            <td className="px-4 py-3 text-left">{item.unstakable}</td>
             <td className="px-4 py-3 text-green-400 text-left">{item.claimable}</td>
             <td className="px-4 py-3">
               <div className="flex gap-2 justify-center">
