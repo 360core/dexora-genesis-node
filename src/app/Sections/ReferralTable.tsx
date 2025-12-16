@@ -20,7 +20,7 @@ const ReferralTable = () => {
       
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold">Referral List</h3>
-        <button className="px-4 py-2 text-sm bg-[#bcd7f5] text-black rounded-md font-medium">
+        <button className="px-4 py-2 text-sm bg-[#bcd7f5] text-black rounded-md font-semibold">
           Claim All
         </button>
       </div>

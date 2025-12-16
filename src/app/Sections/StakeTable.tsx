@@ -55,10 +55,10 @@ const StakeTable = () => {
             <td className="px-4 py-3 text-green-400 text-left">{item.claimable}</td>
             <td className="px-4 py-3">
               <div className="flex gap-2 justify-center">
-                <button className="px-3 py-2 text-xs bg-[#bcd7f5] text-black rounded-md">
+                <button className="px-3 py-2 text-xs bg-[#bcd7f5] text-black rounded-md font-semibold">
                   Claim
                 </button>
-                <button className="px-3 py-2 text-xs bg-[#bcd7f5] text-black rounded-md">
+                <button className="px-3 py-2 text-xs bg-[#bcd7f5] text-black rounded-md font-semibold">
                   Unstake
                 </button>
               </div>
