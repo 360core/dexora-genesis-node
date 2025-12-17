@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { WalletConnectProvider } from "./Components/WalletConnectProvider";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Dexora | Decentralized Exchange on Polygon | Trade, Stake, Play & Earn with $DORA",
@@ -14,13 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="relative text-lg leading-[1.4] ">
-        
-       
-         
-     
-
-        {children}
-
+        <WalletConnectProvider>
+          {children}
+          <Toaster />
+        </WalletConnectProvider>
       </body>
     </html>
   );
