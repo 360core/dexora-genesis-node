@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "./Button";
@@ -37,10 +37,10 @@ const Popup: React.FC<PopupProps> = ({
     if (!isControlled) setInternalIsOpen(true);
   };
 
-  const closePopup = () => {
-    if (!isControlled) setInternalIsOpen(false);
-    onClose?.();
-  };
+const closePopup = useCallback(() => {
+  if (!isControlled) setInternalIsOpen(false);
+  onClose?.();
+}, [isControlled, onClose]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -56,7 +56,7 @@ const Popup: React.FC<PopupProps> = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, closePopup]);
 
   return (
     <div className="flex flex-col items-center justify-center space-y-4">

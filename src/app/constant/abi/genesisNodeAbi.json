@@ -555,6 +555,92 @@
           "type": "address"
         }
       ],
+      "name": "getUserNodeView",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bool",
+              "name": "hasNode",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint8",
+              "name": "nodeType",
+              "type": "uint8"
+            },
+            {
+              "internalType": "address",
+              "name": "referrer",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "bondedAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "bondedAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "lastClaim",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "pendingReward",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "availableToUnbond",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "monthlyRate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "instantBonus",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "referralCount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "referralClaimable",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "referralTotalEarned",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct GenesisNode.UserNodeView",
+          "name": "u",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
       "name": "getUserReferralInfo",
       "outputs": [
         {
@@ -758,4 +844,4 @@
       "stateMutability": "view",
       "type": "function"
     }
-  ]
+  ] 

@@ -2,6 +2,75 @@
 import React from 'react';
 import Image from 'next/image';
 import ftrbg from '@/Assets/images/dexfbg.webp';
+import { UserNodeView } from '../hooks/useUserNodeView';
+
+type Props = {
+  userNode?: UserNodeView | null;
+  userNodeLoading?: boolean;
+};
+
+function fmt(value?: string | number, decimals = 4) {
+  if (value === undefined || value === null) return '--';
+  const n = Number(value);
+  if (Number.isNaN(n)) return '--';
+  return n.toFixed(decimals);
+}
+
+function nodeTypeLabel(type: number) {
+  switch (type) {
+    case 1:
+      return 'Base Genesis Node';
+    case 2:
+      return 'Core Genesis Node';
+    case 3:
+      return 'Premium Genesis Node';
+    default:
+      return '--';
+  }
+}
+
+const NodeStatsCards = ({ userNode, userNodeLoading: loading }: Props) => {
+  const isEmpty = !userNode || !userNode.hasNode;
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
+      <Card
+        title="Node Name"
+        value={
+          loading
+            ? 'Loading...'
+            : isEmpty
+              ? '--'
+              : nodeTypeLabel(userNode.nodeType)
+        }
+        icon={<NodeIcon />}
+      />
+      <Card
+        title="Investment"
+        value={loading ? 'Loading...' : fmt(userNode?.bondedAmount)}
+        icon={<DollarIcon />}
+      />
+      <Card
+        title="ROI"
+        value={loading ? 'Loading...' : isEmpty ? '--' : `${fmt(userNode?.monthlyRate, 2)} %`}
+        icon={<ChartIcon />}
+      />
+      <Card
+        title="Referral Income"
+        value={loading ? 'Loading...' : fmt(userNode?.referralClaimable)}
+        icon={<LinkIcon />}
+      />
+      <Card
+        title="Total Referral"
+        value={loading ? 'Loading...' : userNode?.referralCount ?? '--'}
+        icon={<UsersIcon />}
+      />
+    </div>
+  );
+};
+
+export default NodeStatsCards;
+
 
 const Card = ({ title, value, icon }) => (
   <div className="relative rounded-xl border border-[#ffffff20] bg-[#111417] p-6 backdrop-blur overflow-hidden flex flex-col justify-center  items-center gap-3">
@@ -17,48 +86,13 @@ const Card = ({ title, value, icon }) => (
       {icon}
     </div>
 
-    
+
     <div>
       <p className="text-stone-300 text-base">{title}</p>
       <p className="text-white text-2xl font-semibold mt-1">{value}</p>
     </div>
   </div>
 );
-
-const NodeStatsCards = () => {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
-      <Card
-        title="Node Name"
-        value="Core Genesis Node"
-        icon={<NodeIcon />}
-      />
-      <Card
-        title="Investment"
-        value="$5,000"
-        icon={<DollarIcon />}
-      />
-      <Card
-        title="ROI"
-        value="1% Daily"
-        icon={<ChartIcon />}
-      />
-      <Card
-        title="Referral Income"
-        value="$320"
-        icon={<LinkIcon />}
-      />
-      <Card
-        title="Total Referral"
-        value="14"
-        icon={<UsersIcon />}
-      />
-    </div>
-  );
-};
-
-export default NodeStatsCards;
-
 
 
 const iconClass =

@@ -6,6 +6,14 @@ import {
 import { useAccount, useChains, usePublicClient, useWriteContract } from "wagmi";
 import { Abi, erc20Abi } from "viem";
 
+export type NodesInfoResult = readonly [
+    readonly bigint[],
+    readonly bigint[],
+    readonly bigint[],
+    readonly bigint[],
+    readonly bigint[]
+];
+
 const GENESIS_NODE_ABI = genesisNodeAbi as Abi;
 const GENESIS_NODE_ADDRESS = genesisNodeAddress as `0x${string}`;
 
@@ -13,8 +21,6 @@ export const useGenesisNode = () => {
     const { address: userAddress } = useAccount();
     const publicClient = usePublicClient({ chainId: defaultChainId });
     const { writeContractAsync } = useWriteContract();
-
-    console.log(publicClient, "publicClientpublicClient")
 
     interface ReadContractParams {
         address: `0x${string}`;
@@ -33,6 +39,7 @@ export const useGenesisNode = () => {
         functionName,
         args = [],
     }: ReadContractParams): Promise<TReturn> => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const result = await (publicClient as unknown as any).readContract({
             abi: abi as Abi,
             functionName,
@@ -42,6 +49,7 @@ export const useGenesisNode = () => {
 
         return result as TReturn;
     };
+
     const fetchBalance = async (token: `0x${string}`, userAddress: `0x${string}`) => {
         if (!token || !userAddress) return BigInt(0);
 
@@ -85,6 +93,7 @@ export const useGenesisNode = () => {
 
     // GENESIS NODE FUNCTIONS
     const createNode = async (nodeType: string, referrer: `0x${string}`) => {
+        console.log(nodeType, referrer, "nodeType, referrer")
         return await writeContractAsync({
             address: GENESIS_NODE_ADDRESS,
             abi: GENESIS_NODE_ABI,
@@ -96,11 +105,11 @@ export const useGenesisNode = () => {
     };
 
     // ✅ Claim rewards
-    const claimRewards = async () => {
+    const claimReward = async () => {
         return await writeContractAsync({
             address: GENESIS_NODE_ADDRESS,
             abi: GENESIS_NODE_ABI,
-            functionName: "claimRewards",
+            functionName: "claimReward",
             args: [] as const,
             account: userAddress,
             chain
@@ -140,25 +149,57 @@ export const useGenesisNode = () => {
         return publicClient.waitForTransactionReceipt({ hash });
     };
 
-    const getNodesInfo = async () => {
+    const getNodesInfo = async (): Promise<NodesInfoResult> => {
         return await customReadContract({
             address: GENESIS_NODE_ADDRESS,
             abi: GENESIS_NODE_ABI,
             functionName: "getNodesInfo",
             args: [],
         });
-    }
+    };
+
+    const isGenesisNode = async (userAddress: `0x${string}`) => {
+        return await customReadContract({
+            address: GENESIS_NODE_ADDRESS,
+            abi: GENESIS_NODE_ABI,
+            functionName: "isGenesisNode",
+            args: [userAddress],
+        });
+    };
+
+    const getUserNodeInfo = async (userAddress: `0x${string}`) => {
+        console.log(userAddress, "userAddressuserAddressuserAddress")
+        return await customReadContract({
+            address: GENESIS_NODE_ADDRESS,
+            abi: GENESIS_NODE_ABI,
+            functionName: "getUserNodeInfo",
+            args: [userAddress],
+        });
+    };
+
+    const getUserNodeView = async (userAddress: `0x${string}`) => {
+        console.log(userAddress, "userAddressuserAddressuserAddress")
+        return await customReadContract({
+            address: GENESIS_NODE_ADDRESS,
+            abi: GENESIS_NODE_ABI,
+            functionName: "getUserNodeView",
+            args: [userAddress],
+        });
+    };
 
 
     return {
         fetchBalance,
         checkAllowance,
         getNodesInfo,
+        isGenesisNode,
+        getUserNodeInfo,
+        getUserNodeView,
 
 
         approve,
         createNode,
-        claimRewards,
+        claimReward,
         unbond,
         claimReferralRewards,
         waitForTransactionReceipt

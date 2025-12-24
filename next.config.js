@@ -24,7 +24,12 @@ const nextConfig = {
                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
                 img-src 'self' data: https://cdn.jsdelivr.net;
                 font-src 'self' https://fonts.gstatic.com;
-                connect-src 'self' ws:;
+                connect-src 'self'
+                ws:
+                https://bsc-testnet-rpc.publicnode.com
+                https://*.publicnode.com
+                https://*.binance.org
+                https://*.ankr.com;
                 object-src 'none';
                 base-uri 'self';
                 frame-ancestors 'none';
@@ -35,7 +40,11 @@ const nextConfig = {
                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
                 img-src 'self' data: https://cdn.jsdelivr.net;
                 font-src 'self' https://fonts.gstatic.com;
-                connect-src 'self';
+                connect-src 'self'
+                https://bsc-testnet-rpc.publicnode.com
+                https://*.publicnode.com
+                https://*.binance.org
+                https://*.ankr.com;
                 object-src 'none';
                 base-uri 'self';
                 frame-ancestors 'none';
