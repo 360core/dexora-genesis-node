@@ -56,7 +56,10 @@ const TableTabs = ({ userNode, userNodeLoading }: Props) => {
         )}
 
         {activeTab === 'referral' && (
-          <ReferralTable />
+          <ReferralTable
+            userNode={userNode}
+            userNodeLoading={userNodeLoading}
+           />
         )}
       </div>
     </div>

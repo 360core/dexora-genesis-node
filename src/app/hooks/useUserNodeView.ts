@@ -10,6 +10,7 @@ export type UserNodeView = {
 
     // Bonding (formatted)
     bondedAmount: string;        // formatted ETH / token
+    unbondedAmount: string;        // formatted ETH / token
     bondedAt: number;            // unix timestamp
     lastClaim: number;           // unix timestamp
 
@@ -18,7 +19,7 @@ export type UserNodeView = {
     availableToUnbond: string;
 
     // Node economics (UI friendly)
-    monthlyRate: number;         // APR %
+    rewardRate: number;         // APR %
     instantBonus: number;        // %
 
     // Referral
@@ -44,11 +45,12 @@ export function useUserNodeView(
                 nodeType,
                 referrer,
                 bondedAmount,
+                unbondedAmount,
                 bondedAt,
                 lastClaim,
                 pendingReward,
                 availableToUnbond,
-                monthlyRate,
+                rewardRate,
                 instantBonus,
                 referralCount,
                 referralClaimable,
@@ -61,13 +63,14 @@ export function useUserNodeView(
                 referrer,
 
                 bondedAmount: formatUnits(bondedAmount, 18),
+                unbondedAmount: formatUnits(unbondedAmount, 18),
                 bondedAt: Number(bondedAt),
                 lastClaim: Number(lastClaim),
 
                 pendingReward: formatUnits(pendingReward, 18),
                 availableToUnbond: formatUnits(availableToUnbond, 18),
 
-                monthlyRate: Number(monthlyRate) / 100,
+                rewardRate: Number(rewardRate) / 100,
                 instantBonus: Number(instantBonus) / 100,
 
                 referralCount: Number(referralCount),

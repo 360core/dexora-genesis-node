@@ -93,7 +93,7 @@ export const useGenesisNode = () => {
 
     // GENESIS NODE FUNCTIONS
     const createNode = async (nodeType: string, referrer: `0x${string}`) => {
-        console.log(nodeType, referrer, "nodeType, referrer")
+        // console.log(nodeType, referrer, "nodeType, referrer")
         return await writeContractAsync({
             address: GENESIS_NODE_ADDRESS,
             abi: GENESIS_NODE_ABI,
@@ -168,7 +168,6 @@ export const useGenesisNode = () => {
     };
 
     const getUserNodeInfo = async (userAddress: `0x${string}`) => {
-        console.log(userAddress, "userAddressuserAddressuserAddress")
         return await customReadContract({
             address: GENESIS_NODE_ADDRESS,
             abi: GENESIS_NODE_ABI,
@@ -178,7 +177,6 @@ export const useGenesisNode = () => {
     };
 
     const getUserNodeView = async (userAddress: `0x${string}`) => {
-        console.log(userAddress, "userAddressuserAddressuserAddress")
         return await customReadContract({
             address: GENESIS_NODE_ADDRESS,
             abi: GENESIS_NODE_ABI,

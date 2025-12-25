@@ -4,6 +4,7 @@ import { formatUnits } from 'viem';
 export type UserNodeInfo = {
     referrer: `0x${string}`;
     bondedAmount: string;
+    unbondedAmount: string;
     bondedAt: bigint;
     lastClaim: bigint;
     nodeType: number;
@@ -24,9 +25,10 @@ export function useUserNodeInfo(
             return {
                 referrer: result[0] as `0x${string}`,
                 bondedAmount: formatUnits(result[1], 18),
-                bondedAt: result[2],
-                lastClaim: result[3],
-                nodeType: Number(result[4]),
+                unbondedAmount: formatUnits(result[2], 18),
+                bondedAt: result[3],
+                lastClaim: result[4],
+                nodeType: Number(result[5]),
             };
         },
     });

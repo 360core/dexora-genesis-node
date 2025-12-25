@@ -13,6 +13,7 @@ import { formatUnits } from 'viem';
 import { useReferral } from '../hooks/useReferral';
 import { useNodesInfo } from '../hooks/useNodesInfo';
 import { useUserNodeView } from '../hooks/useUserNodeView';
+import { useQueryClient } from '@tanstack/react-query';
 
 // type PricingSectionProps = {
 //   address?: string; // 👈 wallet address optional
@@ -83,6 +84,7 @@ export default function PricingSection() {
   const referral = useReferral();
   const { address } = useAccount();
   const genesisNode = useGenesisNode();
+  const queryClient = useQueryClient();
   const [copied, setCopied] = useState(false);
   const [buyingType, setBuyingType] = useState<string | null>(null);
   const {
@@ -93,8 +95,6 @@ export default function PricingSection() {
 
 
   const { data: userNode, isLoading: userNodeLoading } = useUserNodeView(genesisNode, address);
-
-  console.log(userNode, "userNodeuserNode", userNodeLoading)
 
 
   const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
@@ -126,10 +126,10 @@ export default function PricingSection() {
       }
 
       const isGenesisNodeUser = await genesisNode.isGenesisNode(address);
-      // if (isGenesisNodeUser) return toast.error("Node already exists");
+      if (isGenesisNodeUser) return toast.error("Node already exists");
       const isGenesisNodeReferral = await genesisNode.isGenesisNode(referral);
       if (isGenesisNodeReferral) return toast.error("Referrer does not exist");
-      console.log(isGenesisNodeUser, isGenesisNodeReferral, "isGenesisNodeUser, isGenesisNodeReferral")
+      // console.log(isGenesisNodeUser, isGenesisNodeReferral, "isGenesisNodeUser, isGenesisNodeReferral")
 
       setBuyingType(plan.type); // 🔒 lock UI
       if (allowance < requiredAmount) {
@@ -142,6 +142,10 @@ export default function PricingSection() {
         throw new Error('Node creation transaction failed');
       }
 
+      queryClient.invalidateQueries({
+        queryKey: ['user-node-view', address],
+      });
+
       toast.success("Node created successfully 🎉");
     } catch {
       // console.error(err);
@@ -153,11 +157,11 @@ export default function PricingSection() {
 
 
   const handleCopyReferral = useCallback(async () => {
-    if (!referralUrl) return;
+    if (!address) return;
     await navigator.clipboard.writeText(referralUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 5000);
-  }, [referralUrl]);
+  }, [referralUrl, address]);
 
   const mergedPlans = useMemo(() => {
     // console.log(nodes, "nodesnodesnodes132133")
@@ -233,24 +237,28 @@ export default function PricingSection() {
                 ))}
               </ul>
 
-              <Button
-                onClick={() => handleBuyNode(plan)}
-                // disabled={!!buyingType || userNode?.hasNode}
-                variant="animated"
-                className="w-full mt-6">
-                {buyingType === plan.type ? (
-                  <div className="flex items-center gap-2">
-                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-black border-t-transparent" />
-                    Processing...
-                  </div>
-                  // <>
-                  //   <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
-                  //   Processing...
-                  // </>
-                ) : (
-                  plan.ctaText
+              <div className="relative w-full">
+                <Button
+                  onClick={() => handleBuyNode(plan)}
+                  disabled={!!buyingType || userNode?.hasNode}
+                  variant="animated"
+                  className="w-full mt-6"
+                >
+                  {buyingType === plan.type ? (
+                    <div className="flex items-center gap-2">
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-black border-t-transparent" />
+                      Processing...
+                    </div>
+                  ) : (
+                    plan.ctaText
+                  )}
+                </Button>
+                {userNode?.hasNode && (
+                  <p className="absolute mt-1 text-xs text-gray-400 text-center w-full">
+                    You already own a node
+                  </p>
                 )}
-              </Button>
+              </div>
             </div>
           ))}
 

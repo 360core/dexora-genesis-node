@@ -52,7 +52,7 @@ const NodeStatsCards = ({ userNode, userNodeLoading: loading }: Props) => {
       />
       <Card
         title="ROI"
-        value={loading ? 'Loading...' : isEmpty ? '--' : `${fmt(userNode?.monthlyRate, 2)} %`}
+        value={loading ? 'Loading...' : isEmpty ? '--' : `${fmt(userNode?.rewardRate, 2)} %`}
         icon={<ChartIcon />}
       />
       <Card

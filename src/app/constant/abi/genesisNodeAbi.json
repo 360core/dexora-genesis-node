@@ -444,7 +444,7 @@
         },
         {
           "internalType": "uint256",
-          "name": "monthlyRate",
+          "name": "rewardRate",
           "type": "uint256"
         }
       ],
@@ -477,7 +477,7 @@
         },
         {
           "internalType": "uint256[]",
-          "name": "monthlyRate",
+          "name": "rewardRate",
           "type": "uint256[]"
         }
       ],
@@ -526,6 +526,11 @@
         {
           "internalType": "uint256",
           "name": "bondedAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "unbondedAmount",
           "type": "uint256"
         },
         {
@@ -581,6 +586,11 @@
             },
             {
               "internalType": "uint256",
+              "name": "unbondedAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
               "name": "bondedAt",
               "type": "uint256"
             },
@@ -601,7 +611,7 @@
             },
             {
               "internalType": "uint256",
-              "name": "monthlyRate",
+              "name": "rewardRate",
               "type": "uint256"
             },
             {
@@ -799,19 +809,6 @@
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "token",
-      "outputs": [
-        {
-          "internalType": "contract IERC20",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "inputs": [
         {
           "internalType": "address",
@@ -830,18 +827,5 @@
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "usdt",
-      "outputs": [
-        {
-          "internalType": "contract IERC20",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
     }
-  ] 
+  ]

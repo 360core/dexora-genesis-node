@@ -37,8 +37,7 @@ const StakeTable = ({ userNode, userNodeLoading }: Props) => {
       });
 
       toast.success('Rewards claimed successfully 🎉');
-    } catch (e) {
-      console.log(e, "eeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+    } catch {
       toast.error('Claim transaction failed');
     } finally {
       setClaiming(false);
@@ -128,7 +127,7 @@ const StakeTable = ({ userNode, userNodeLoading }: Props) => {
                 {Number(userNode.availableToUnbond).toFixed(4)}
               </td>
               <td className="px-4 py-3">
-                {userNode.monthlyRate}%
+                {userNode.rewardRate?.toFixed(2)}%
               </td>
               <td className="px-4 py-3">
                 <div className="flex gap-2 justify-center">
