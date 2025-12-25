@@ -25,6 +25,7 @@ const nextConfig = {
                 img-src 'self' data: https://cdn.jsdelivr.net;
                 font-src 'self' https://fonts.gstatic.com;
                 connect-src 'self'
+                https://api.goldsky.com
                 https://bsc-testnet-rpc.publicnode.com
                 https://*.publicnode.com
                 https://*.binance.org
@@ -40,6 +41,7 @@ const nextConfig = {
                 img-src 'self' data: https://cdn.jsdelivr.net;
                 font-src 'self' https://fonts.gstatic.com;
                 connect-src 'self'
+                https://api.goldsky.com
                 https://bsc-testnet-rpc.publicnode.com
                 https://*.publicnode.com
                 https://*.binance.org

@@ -128,7 +128,7 @@ export default function PricingSection() {
       const isGenesisNodeUser = await genesisNode.isGenesisNode(address);
       if (isGenesisNodeUser) return toast.error("Node already exists");
       const isGenesisNodeReferral = await genesisNode.isGenesisNode(referral);
-      if (isGenesisNodeReferral) return toast.error("Referrer does not exist");
+      if (!isGenesisNodeReferral) return toast.error("Referrer does not exist");
       // console.log(isGenesisNodeUser, isGenesisNodeReferral, "isGenesisNodeUser, isGenesisNodeReferral")
 
       setBuyingType(plan.type); // 🔒 lock UI
