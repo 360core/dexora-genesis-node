@@ -167,6 +167,15 @@ export const useGenesisNode = () => {
         });
     };
 
+    const isGenesisOwner: () => Promise<`0x${string}`> = async () => {
+        return await customReadContract({
+            address: GENESIS_NODE_ADDRESS,
+            abi: GENESIS_NODE_ABI,
+            functionName: "owner",
+            args: [],
+        });
+    };
+
     const getUserNodeInfo = async (userAddress: `0x${string}`) => {
         return await customReadContract({
             address: GENESIS_NODE_ADDRESS,
@@ -191,6 +200,7 @@ export const useGenesisNode = () => {
         checkAllowance,
         getNodesInfo,
         isGenesisNode,
+        isGenesisOwner,
         getUserNodeInfo,
         getUserNodeView,
 
