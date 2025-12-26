@@ -17,6 +17,12 @@ const ReferralTable = ({ userNode }: Props) => {
   const genesisNode = useGenesisNode();
   const queryClient = useQueryClient();
   const [claiming, setClaiming] = useState(false);
+    const { address: user, isConnected } = useAccount();
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+
+  const { referrals = [], loading, refetch } = useReferralRewards(user);
+  // console.log(referrals, "referralsreferrals")
 
 
   // 🌟 Use actual referral data from userNode if available
@@ -49,12 +55,6 @@ const ReferralTable = ({ userNode }: Props) => {
     }
   };
 
-  const { address: user, isConnected } = useAccount();
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 10;
-
-  const { referrals = [], loading, refetch } = useReferralRewards(user);
-
   // Silent refresh on user change
   useEffect(() => {
     if (user) {
@@ -80,9 +80,9 @@ const ReferralTable = ({ userNode }: Props) => {
 
     return referrals.map((r) => ({
       date: formatDate(r.timestamp_),
-      sponsor: formatHash(r.referrer),
-      referee: formatHash(r.referee),
-      tokenAmount: (Number(r.tokenAmount) / 1e18).toFixed(4),
+      sponsor: formatHash(r.buyerSponsor),
+      referee: formatHash(r.buyer),
+      tokenAmount: (Number(r.amount) / 1e18).toFixed(4),
       level: r.level,
       tx: formatHash(r.transactionHash_),
       hashLink: `https://testnet.bscscan.com/tx/${r.transactionHash_}`,
@@ -134,7 +134,7 @@ const ReferralTable = ({ userNode }: Props) => {
               <tr>
                 <th className="px-4 py-2 text-center">Sr No.</th>
                 <th className="px-4 py-2 text-center">Sponsor</th>
-                <th className="px-4 py-2 text-center">Wallet</th>
+                <th className="px-4 py-2 text-center">User</th>
                 <th className="px-4 py-2 text-center">Level</th>
                 <th className="px-4 py-2 text-center">Reward</th>
                 <th className="px-4 py-2 text-center">Date</th>

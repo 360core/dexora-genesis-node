@@ -9,7 +9,7 @@ import { useAccount } from 'wagmi';
 import { NodeType, usdtTokenAddress } from "../constant";
 import { useGenesisNode } from '../hooks/useGenesisNode';
 import toast from 'react-hot-toast';
-import { formatUnits } from 'viem';
+import { isAddress, parseUnits } from 'viem';
 import { useReferral } from '../hooks/useReferral';
 import { useNodesInfo } from '../hooks/useNodesInfo';
 import { useUserNodeView } from '../hooks/useUserNodeView';
@@ -111,49 +111,85 @@ export default function PricingSection() {
       throw new Error('Approval transaction failed');
     }
     toast.success('USDT Approved successfully');
+    return true;
   };
 
   const handleBuyNode = async (plan: typeof plans[number]) => {
-    if (!genesisNode.createNode) return;
-    try {
-      const allowance = await genesisNode.checkAllowance(address as `0x${string}`, usdtTokenAddress);
-      const requiredAmount = BigInt(plan.nodeCost * 10 ** 6); // Assuming USDT has 6 decimals
-      const balance = await genesisNode.fetchBalance(usdtTokenAddress, address);
-      const formattedBalace = +formatUnits(balance, 6);
+  // 1️⃣ Basic guards (cheap checks)
+  if (!genesisNode.createNode || !address) return;
 
-      if (plan.nodeCost > formattedBalace) {
-        return toast.error("Insufficient USDT Balance!");
-      }
+  if (!referral) {
+    return toast.error("Referral address is required");
+  }
 
-      const isGenesisNodeUser = await genesisNode.isGenesisNode(address);
-      if (isGenesisNodeUser) return toast.error("Node already exists");
-      const isGenesisNodeReferral = await genesisNode.isGenesisNode(referral);
-      if (!isGenesisNodeReferral) return toast.error("Referrer does not exist");
-      // console.log(isGenesisNodeUser, isGenesisNodeReferral, "isGenesisNodeUser, isGenesisNodeReferral")
+  if (!isAddress(referral)) {
+    return toast.error("Invalid referral address");
+  }
 
-      setBuyingType(plan.type); // 🔒 lock UI
-      if (allowance < requiredAmount) {
-        await handleApprove(requiredAmount);
-      }
+  try {
+    // 2️⃣ On-chain READ checks (no UI lock yet)
+    const requiredAmount = parseUnits(plan.nodeCost.toString(), 6);
 
-      const tx = await genesisNode.createNode(plan.type, referral as `0x${string}`);
-      const receipt = await genesisNode.waitForTransactionReceipt(tx);
-      if (receipt.status !== 'success') {
-        throw new Error('Node creation transaction failed');
-      }
-
-      queryClient.invalidateQueries({
-        queryKey: ['user-node-view', address],
-      });
-
-      toast.success("Node created successfully 🎉");
-    } catch {
-      // console.error(err);
-      toast.error("Transaction failed");
-    } finally {
-      setBuyingType(null); // 🔓 unlock UI
+    const balance = await genesisNode.fetchBalance(usdtTokenAddress, address);
+    if (balance < requiredAmount) {
+      return toast.error("Insufficient USDT Balance!");
     }
-  };
+
+    // const isGenesisNodeUser = await genesisNode.isGenesisNode(address);
+    // if (isGenesisNodeUser) {
+    //   return toast.error("Node already exists");
+    // }
+
+    const owner = await genesisNode.isGenesisOwner();
+    const isOwner = owner.toLowerCase() === referral.toLowerCase();
+
+    const isGenesisNodeReferral = await genesisNode.isGenesisNode(referral);
+    if (!isGenesisNodeReferral && !isOwner) {
+      return toast.error("Referrer does not exist");
+    }
+
+    // 3️⃣ Lock UI AFTER all validations pass
+    setBuyingType(plan.type);
+
+    // 4️⃣ Allowance check + approval
+    const allowance = await genesisNode.checkAllowance(
+      address as `0x${string}`,
+      usdtTokenAddress
+    );
+
+    if (allowance < requiredAmount) {
+      const approved = await handleApprove(requiredAmount);
+      if (!approved) {
+        setBuyingType(null);
+        return;
+      }
+    }
+
+    // 5️⃣ Write transaction
+    const tx = await genesisNode.createNode(
+      plan.type,
+      referral as `0x${string}`
+    );
+
+    // 6️⃣ Wait for confirmation
+    const receipt = await genesisNode.waitForTransactionReceipt(tx);
+    if (receipt.status !== "success") {
+      throw new Error("Node creation transaction failed");
+    }
+
+    // 7️⃣ Refresh cached data
+    queryClient.invalidateQueries({ queryKey: ["nodes-info"] });
+    queryClient.invalidateQueries({ queryKey: ["user-node-view", address] });
+
+    toast.success("Node created successfully 🎉");
+  } catch (err) {
+    // console.error(err);
+    toast.error(err?.shortMessage || err?.message || "Transaction failed");
+  } finally {
+    // 8️⃣ Always unlock UI
+    setBuyingType(null);
+  }
+};
 
 
   const handleCopyReferral = useCallback(async () => {
@@ -240,7 +276,7 @@ export default function PricingSection() {
               <div className="relative w-full">
                 <Button
                   onClick={() => handleBuyNode(plan)}
-                  disabled={!!buyingType || userNode?.hasNode}
+                  // disabled={!!buyingType || userNode?.hasNode}
                   variant="animated"
                   className="w-full mt-6"
                 >
