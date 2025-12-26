@@ -12,7 +12,7 @@ export const Loader = ({ className = "" }: { className?: string }) => {
 
       {/* Text */}
       <div className="text-white text-xl sm:text-2xl md:text-3xl font-semibold tracking-wide fr-fnt">
-        Entering Dexora...
+        Entering Dizinex...
       </div>
     </div>
   );

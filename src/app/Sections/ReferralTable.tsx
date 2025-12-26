@@ -100,7 +100,7 @@ const ReferralTable = ({ userNode }: Props) => {
 
   if (loading) {
     return (
-      <div className="bg-card border border-gray-700 rounded-md p-6 text-center text-stone-300">
+      <div className="bg-card border border-gray-700 rounded-md p-6 text-center text-slate-300">
         Loading Referral data...
       </div>
     );
@@ -108,7 +108,7 @@ const ReferralTable = ({ userNode }: Props) => {
 
   if (!userNode || !referrals?.length) {
     return (
-      <div className="bg-card border border-gray-700 rounded-md p-6 text-center text-stone-400">
+      <div className="bg-card border border-gray-700 rounded-md p-6 text-center text-slate-400">
         No Referral found
       </div>
     );

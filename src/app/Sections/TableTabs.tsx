@@ -28,7 +28,7 @@ const TableTabs = ({ userNode, userNodeLoading }: Props) => {
           className={`relative z-10 px-5 py-2 text-sm font-semibold rounded-lg transition
             ${activeTab === 'stake'
               ? 'text-black'
-              : 'text-stone-300 hover:text-white'
+              : 'text-slate-300 hover:text-white'
             }`}
         >
           Stake
@@ -39,7 +39,7 @@ const TableTabs = ({ userNode, userNodeLoading }: Props) => {
           className={`relative z-10 px-5 py-2 text-sm font-semibold rounded-lg transition
             ${activeTab === 'referral'
               ? 'text-black'
-              : 'text-stone-300 hover:text-white'
+              : 'text-slate-300 hover:text-white'
             }`}
         >
           Referral

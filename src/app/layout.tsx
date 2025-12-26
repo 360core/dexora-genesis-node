@@ -5,8 +5,8 @@ import { Toaster } from "react-hot-toast";
 import { ClientOnly } from "./Components/ClientOnly";
 
 export const metadata: Metadata = {
-  title: "Dexora | Decentralized Exchange on Polygon | Trade, Stake, Play & Earn with $DORA",
-  description: "Dexora is a next-gen decentralized exchange built on the Polygon blockchain. Trade securely, stake for passive rewards, and earn $DORA through the Tap Tap Game. No KYC, low fees, and full ownership in a gamified DeFi ecosystem.",
+  title: "Dizinex | Decentralized Exchange on Polygon | Trade, Stake, Play & Earn with $DORA",
+  description: "Dizinex is a next-gen decentralized exchange built on the Polygon blockchain. Trade securely, stake for passive rewards, and earn $DORA through the Tap Tap Game. No KYC, low fees, and full ownership in a gamified DeFi ecosystem.",
 };
 
 export default function RootLayout({

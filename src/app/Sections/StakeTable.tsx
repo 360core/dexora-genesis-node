@@ -71,7 +71,7 @@ const StakeTable = ({ userNode, userNodeLoading }: Props) => {
 
   if (userNodeLoading) {
     return (
-      <div className="bg-card border border-gray-700 rounded-md p-6 text-center text-stone-300">
+      <div className="bg-card border border-gray-700 rounded-md p-6 text-center text-slate-300">
         Loading stake data...
       </div>
     );
@@ -79,7 +79,7 @@ const StakeTable = ({ userNode, userNodeLoading }: Props) => {
 
   if (!userNode || !userNode.hasNode) {
     return (
-      <div className="bg-card border border-gray-700 rounded-md p-6 text-center text-stone-400">
+      <div className="bg-card border border-gray-700 rounded-md p-6 text-center text-slate-400">
         No active node found
       </div>
     );

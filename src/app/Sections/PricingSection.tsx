@@ -36,7 +36,7 @@ const plans = [
     privileges: [
       'Senior-level DAO proposal and final decision rights',
       'Direct influence over tokenomics, liquidity, and core economic modules',
-      'Priority access to every Dexora upgrade, utility, and protocol expansion',
+      'Priority access to every Dizinex upgrade, utility, and protocol expansion',
       'Highest per-node reward allocation across the ecosystem',
     ],
   },
@@ -44,7 +44,7 @@ const plans = [
     type: NodeType.CORE,
     nodeCost: 5000,
     planName: 'Core Genesis Node',
-    tagline: 'Strategic Builders of Dexora',
+    tagline: 'Strategic Builders of Dizinex',
     nodePrice: '$5,000',
     totalSupply: '81 Nodes',
     instantBonus: '15% = $750',
@@ -75,7 +75,7 @@ const plans = [
     privileges: [
       'Community-level proposal authority',
       'Participation in all major governance decisions',
-      'Guaranteed daily revenue share aligned with Dexora activity',
+      'Guaranteed daily revenue share aligned with Dizinex activity',
     ],
   },
 ];
@@ -191,8 +191,8 @@ export default function PricingSection() {
   return (
     <section className="relative py-24 md:py-40">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-white text-4xl font-semibold">Dexora Genesis Nodes</h2>
-        <p className="text-stone-300 text-lg mt-2">
+        <h2 className="text-white text-4xl font-semibold">Dizinex Genesis Nodes</h2>
+        <p className="text-slate-300 text-lg mt-2">
           Choose your governance power level and secure your position.
         </p>
 
@@ -218,7 +218,7 @@ export default function PricingSection() {
               )}
 
               <h3 className="text-white text-2xl">{plan.planName}</h3>
-              <p className="text-stone-300 mt-1">{plan.tagline}</p>
+              <p className="text-slate-300 mt-1">{plan.tagline}</p>
 
               <p className="text-white text-4xl font-semibold mt-4">{plan.nodePrice}</p>
 
@@ -228,9 +228,9 @@ export default function PricingSection() {
                 <Stat label="Votes" value={plan.votingPower} className="col-span-2" />
               </div>
 
-              <ul className="mt-6 space-y-3 text-stone-300 flex-1 text-start">
+              <ul className="mt-6 space-y-3 text-slate-300 flex-1 text-start">
                 {plan.privileges.map((p, i) => (
-                  <li key={i} className="flex gap-2">
+                  <li key={i} className="flex gap-2 text-base">
                     <span className="w-2 h-2 bg-white rounded-full mt-2" />
                     {p}
                   </li>
@@ -341,7 +341,7 @@ export default function PricingSection() {
 //     )}
 
 //     <h3 className="text-white text-2xl">{planName}</h3>
-//     <p className="text-stone-300 mt-1">{tagline}</p>
+//     <p className="text-slate-300 mt-1">{tagline}</p>
 
 //     <p className="text-white text-4xl font-semibold mt-4">{nodePrice}</p>
 
@@ -351,7 +351,7 @@ export default function PricingSection() {
 //       <Stat label="Votes" value={votingPower} className="col-span-2" />
 //     </div>
 
-//     <ul className="mt-6 space-y-3 text-stone-300 flex-1 text-start">
+//     <ul className="mt-6 space-y-3 text-slate-300 flex-1 text-start">
 //       {privileges.map((p, i) => (
 //         <li key={i} className="flex gap-2">
 //           <span className="w-2 h-2 bg-white rounded-full mt-2" />
@@ -368,7 +368,7 @@ export default function PricingSection() {
 
 const Stat = ({ label, value, className = '' }) => (
   <div className={`border border-white/20 rounded-lg p-2 ${className}`}>
-    <p className="text-xs text-stone-400">{label}</p>
+    <p className="text-xs text-slate-400">{label}</p>
     <p className="text-white font-medium">{value}</p>
   </div>
 );

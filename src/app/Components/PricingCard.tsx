@@ -64,14 +64,14 @@ const PricingCard = ({
         <div className="flex-1">
           <h3 className="text-white text-2xl text-left">{planName}</h3>
           {tagline ? (
-            <p className="text-stone-300 text-base mt-1 text-left">{tagline}</p>
+            <p className="text-slate-300 text-base mt-1 text-left">{tagline}</p>
           ) : null}
         </div>
       </div>
 
      
       <div className="mt-7">
-        <div className="text-stone-300 text-sm">Node Price</div>
+        <div className="text-slate-300 text-sm">Node Price</div>
         <div className="text-white text-4xl font-semibold mt-1">{nodePrice}</div>
       </div>
 
@@ -92,7 +92,7 @@ const PricingCard = ({
           <div className="text-white text-lg font-medium">Privileges</div>
           <ul className="mt-4 space-y-3">
             {privileges.map((item, idx) => (
-              <li key={idx} className="flex gap-3 text-stone-300">
+              <li key={idx} className="flex gap-3 text-slate-300">
                 <span className="mt-[7px] h-2 w-2 rounded-full bg-white/60 shrink-0" />
                 <span className="text-base leading-relaxed">{item}</span>
               </li>
@@ -109,7 +109,7 @@ const PricingCard = ({
 
 const Stat = ({ label, value }) => (
   <div className="rounded-xl border border-[#ffffff14] bg-[#00000025] p-4">
-    <div className="text-stone-300 text-xs">{label}</div>
+    <div className="text-slate-300 text-xs">{label}</div>
     <div className="text-white text-base font-medium mt-1">{value}</div>
   </div>
 );

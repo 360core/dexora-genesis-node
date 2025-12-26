@@ -29,7 +29,7 @@ const Footer = () => {
                 <div className="flex flex-col-reverse sm:flex-row flex-wrap justify-center sm:justify-between items-center">
                     <div className="text-center mt-5 sm:mt-0">
                         <p className="bnr-desc text-xl text-white">
-                            &copy; {currentYear} <span className="text-[#dfe6ff]">Dexora</span> All rights reserved.
+                            &copy; {currentYear} <span className="text-[#dfe6ff]">Dizinex</span> All rights reserved.
                         </p>
                     </div>
                     <div className="flex space-x-5 justify-center sm:justify-start items-center mx-auto sm:mx-0">

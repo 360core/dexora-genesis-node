@@ -88,7 +88,7 @@ const Card = ({ title, value, icon }) => (
 
 
     <div>
-      <p className="text-stone-300 text-base">{title}</p>
+      <p className="text-slate-300 text-base">{title}</p>
       <p className="text-white text-2xl font-semibold mt-1">{value}</p>
     </div>
   </div>

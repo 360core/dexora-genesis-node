@@ -42,7 +42,7 @@ const Header = () => {
         <Link href="/">
           <Image
             src={logo}
-            alt="Dexora Logo"
+            alt="Dizinex Logo"
             width={200}
             height={50}
             className="w-10 md:w-16 h-auto"
