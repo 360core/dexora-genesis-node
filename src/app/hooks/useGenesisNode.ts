@@ -194,6 +194,15 @@ export const useGenesisNode = () => {
         });
     };
 
+    const getUserReferralByLevel = async (userAddress: `0x${string}`) => {
+        return await customReadContract({
+            address: GENESIS_NODE_ADDRESS,
+            abi: GENESIS_NODE_ABI,
+            functionName: "getUserReferralByLevel",
+            args: [userAddress],
+        });
+    };
+
 
     return {
         fetchBalance,
@@ -203,6 +212,7 @@ export const useGenesisNode = () => {
         isGenesisOwner,
         getUserNodeInfo,
         getUserNodeView,
+        getUserReferralByLevel,
 
 
         approve,

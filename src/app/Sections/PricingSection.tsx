@@ -14,6 +14,7 @@ import { useReferral } from '../hooks/useReferral';
 import { useNodesInfo } from '../hooks/useNodesInfo';
 import { useUserNodeView } from '../hooks/useUserNodeView';
 import { useQueryClient } from '@tanstack/react-query';
+import { useUserReferralByLevel } from '../hooks/useUserReferralByLevel';
 
 // type PricingSectionProps = {
 //   address?: string; // 👈 wallet address optional
@@ -95,6 +96,7 @@ export default function PricingSection() {
 
 
   const { data: userNode, isLoading: userNodeLoading } = useUserNodeView(genesisNode, address);
+  const { data: useReferralByLevel } = useUserReferralByLevel(genesisNode, address);
 
 
   const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
@@ -325,6 +327,7 @@ export default function PricingSection() {
           <NodeStatsCards
             userNode={userNode}
             userNodeLoading={userNodeLoading}
+            useUserReferralByLevel={useReferralByLevel}
           />
 
         </div>

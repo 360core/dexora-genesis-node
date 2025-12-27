@@ -208,13 +208,19 @@
         {
           "indexed": true,
           "internalType": "address",
-          "name": "referrer",
+          "name": "receiver",
           "type": "address"
         },
         {
           "indexed": true,
           "internalType": "address",
-          "name": "referee",
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "buyerSponsor",
           "type": "address"
         },
         {
@@ -226,11 +232,11 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "tokenAmount",
+          "name": "amount",
           "type": "uint256"
         }
       ],
-      "name": "ReferralRewardPaid",
+      "name": "ReferralRewardDistributed",
       "type": "event"
     },
     {
@@ -638,6 +644,59 @@
           "internalType": "struct GenesisNode.UserNodeView",
           "name": "u",
           "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "level",
+          "type": "uint256"
+        }
+      ],
+      "name": "getUserReferralByLevel",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "accrued",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "referralCount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "getUserReferralByLevel",
+      "outputs": [
+        {
+          "internalType": "uint256[3]",
+          "name": "tokenByLevel",
+          "type": "uint256[3]"
+        },
+        {
+          "internalType": "uint256[3]",
+          "name": "referralCountByLevel",
+          "type": "uint256[3]"
         }
       ],
       "stateMutability": "view",

@@ -3,10 +3,12 @@ import React from 'react';
 import Image from 'next/image';
 import ftrbg from '@/Assets/images/dexfbg.webp';
 import { UserNodeView } from '../hooks/useUserNodeView';
+import { UseReferralByLevel } from '../hooks/useUserReferralByLevel';
 
 type Props = {
   userNode?: UserNodeView | null;
   userNodeLoading?: boolean;
+  useUserReferralByLevel?: UseReferralByLevel | null;
 };
 
 function fmt(value?: string | number, decimals = 4) {
@@ -29,8 +31,20 @@ function nodeTypeLabel(type: number) {
   }
 }
 
-const NodeStatsCards = ({ userNode, userNodeLoading: loading }: Props) => {
+const NodeStatsCards = ({ userNode, userNodeLoading: loading, useUserReferralByLevel }: Props) => {
   const isEmpty = !userNode || !userNode.hasNode;
+
+  const referralCountByLevelObj = useUserReferralByLevel?.referralCountByLevel
+    ? {
+      level_1: useUserReferralByLevel.referralCountByLevel[0] ?? 0,
+      level_2: useUserReferralByLevel.referralCountByLevel[1] ?? 0,
+      level_3: useUserReferralByLevel.referralCountByLevel[2] ?? 0,
+    }
+    : {
+      level_1: 0,
+      level_2: 0,
+      level_3: 0,
+    };
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -67,17 +81,17 @@ const NodeStatsCards = ({ userNode, userNodeLoading: loading }: Props) => {
       />
       <Card
         title="Level 1"
-        value={loading ? 'Loading...' : userNode?.referralCount ?? '--'}
+        value={loading ? 'Loading...' : referralCountByLevelObj?.level_1 ?? '--'}
         icon={<UsersIcon />}
       />
       <Card
-        title="Level 1"
-        value={loading ? 'Loading...' : userNode?.referralCount ?? '--'}
+        title="Level 2"
+        value={loading ? 'Loading...' : referralCountByLevelObj?.level_2 ?? '--'}
         icon={<UsersIcon />}
       />
       <Card
-        title="Level 1"
-        value={loading ? 'Loading...' : userNode?.referralCount ?? '--'}
+        title="Level 3"
+        value={loading ? 'Loading...' : referralCountByLevelObj?.level_3 ?? '--'}
         icon={<UsersIcon />}
       />
     </div>
