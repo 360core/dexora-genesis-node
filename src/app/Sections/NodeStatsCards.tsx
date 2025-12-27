@@ -33,7 +33,7 @@ const NodeStatsCards = ({ userNode, userNodeLoading: loading }: Props) => {
   const isEmpty = !userNode || !userNode.hasNode;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
       <Card
         title="Node Name"
         value={
@@ -61,7 +61,22 @@ const NodeStatsCards = ({ userNode, userNodeLoading: loading }: Props) => {
         icon={<LinkIcon />}
       />
       <Card
-        title="Total Referral"
+        title="Direct Referral"
+        value={loading ? 'Loading...' : userNode?.referralCount ?? '--'}
+        icon={<UsersIcon />}
+      />
+      <Card
+        title="Level 1"
+        value={loading ? 'Loading...' : userNode?.referralCount ?? '--'}
+        icon={<UsersIcon />}
+      />
+      <Card
+        title="Level 1"
+        value={loading ? 'Loading...' : userNode?.referralCount ?? '--'}
+        icon={<UsersIcon />}
+      />
+      <Card
+        title="Level 1"
         value={loading ? 'Loading...' : userNode?.referralCount ?? '--'}
         icon={<UsersIcon />}
       />
